@@ -1,0 +1,279 @@
+{% load static %}
+
+
+<hr>
+<h2 class="text-center" id="detection_part">DETECTION REPORTS</h2>
+<hr>
+{% if active %}
+<div class="container">
+    <div class="row">
+        {% for preimg_url, photo, label in alldata %}
+        <div class="col-lg-4 pb-1 pb-md-0">
+            <div class="card"> <img class="card-img-top" src="{{ photo.image.url }}" alt="Card image cap">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <label for="exampleFormControlTextarea2" class="form-label"> <strong> Result </strong></label>
+                        <input class="form-control" type="text" name='result' style="font-size: 10px"
+                            value="{{photo.description}}" aria-label=" RESULT" disabled readonly>
+                    </div>
+                    <div class="container">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheck" name="flexSwitchCheck"
+                                onchange="check1()" unchecked>
+                            <label class="form-check-label" for="flexSwitchCheck"><strong> Manual Marking
+                                </strong></label>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-check form-check-inline row-3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Dent"
+                                        value="option1" disabled>
+                                    <label class="form-check-label" for="inlineRadio4">Dent</label>
+                                </div>
+                                <div class="form-check form-check-inline row-3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Rim"
+                                        value="option2" disabled>
+                                    <label class="form-check-label" for="inlineRadio5">Rim</label>
+                                </div>
+                                <div class="form-check form-check-inline row-3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Scratch"
+                                        value="option3" disabled>
+                                    <label class="form-check-label" for="inlineRadio6">Scratch</label>
+                                </div>
+                                <div class="form-check form-check-inline row-3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Other"
+                                        value="option2" disabled>
+                                    <label class="form-check-label" for="inlineRadio5">Other</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="label" name="des"> Some Description</p>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="btn btn-primary btn-sm">
+                                    <a name="change"> Change</a>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <form method="POST" id="post-form" class="post-add-form">
+                                    {% csrf_token %}
+                                    <div class="input-group">
+                                        <input type="hidden" name="img_id" id="img_id" value={{ photo.id }}>
+                                        <input type="hidden" name="img_label" id="img_label" value={{ label }}>
+                                        <div class="input-group-append">
+                                            <button type="submit" name="addbtn" id="bind"
+                                                class="btn btn-dark btn-primary btn-icon-split">
+                                                Add to model
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+        <div class="col-md-4 pb-1 pb-md-0">
+            <div class="card"> <img class="card-img-top" src="{%static 'images/400x200.gif'%}" alt="Card image cap">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <label for="exampleFormControlTextarea3" class="form-label"> <strong> Result </strong></label>
+                        <input class="form-control" type="text" style="font-size: 15px" value="RESULT"
+                            aria-label=" RESULT" disabled readonly>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheck" onchange="verifyAnswer()"
+                            unchecked>
+                        <label class="form-check-label" for="flexSwitchCheck"><strong> Manual Marking
+                            </strong></label>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="form-check form-check-inline row-3">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="dent"
+                                value="option1" disabled>
+                            <label class="form-check-label" for="inlineRadio4">Dent</label>
+                        </div>
+                        <div class="form-check form-check-inline row-3">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rim"
+                                value="option2" disabled>
+                            <label class="form-check-label" for="inlineRadio5">Rim</label>
+                        </div>
+                        <div class="form-check form-check-inline row-3">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="scratch"
+                                value="option3" disabled>
+                            <label class="form-check-label" for="inlineRadio6">Scratch</label>
+                        </div>
+                        <div class="form-check form-check-inline row-3">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="other"
+                                value="option2" disabled>
+                            <label class="form-check-label" for="inlineRadio5">Other</label>
+                        </div>
+                    </div>
+                    <p class="card-text" id="des"> Some Description</p>
+                    <a href="#" class="btn btn-primary"> Add to Model</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Well done!</h4>
+            <p> You can manuelly label the selected images and go to active learning page to refine model</p>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"> </div>
+        <div class="col-md-4">
+            <a href="image_list" class="btn btn-dark btn-primary">GO Refine</a>
+        </div>
+    </div>
+</div>
+
+
+{% else %}
+<div class="container">
+    <div class="row">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Well done!</h4>
+            <p> You can check all results in Download Site and correct the result by youself!</p>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"> </div>
+        <div class="col-md-4">
+            <a href="final_report" class="btn btn-dark btn-primary">GO</a>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+<!--
+<script>
+    $( "#bind" ).click(function() {
+        $(this).attr("disabled", "disabled");
+     });
+</script>
+-->
+<script>
+    function verifyAnswer() {
+        //enable all the radio button
+        document.getElementById("dent").disabled = true;
+        document.getElementById("rim").disabled = true;
+        document.getElementById("scratch").disabled = true;
+        document.getElementById("other").disabled = true;
+
+        //get the value if checkbox is checked
+        var dev = document.getElementById("flexSwitchCheck").checked;
+        var len = document.getElementsByName('gender').length
+        // alert('${input.v')
+
+        if (dev == true) {
+            //enable all the radio button
+            document.getElementById("dent").disabled = false;
+            document.getElementById("rim").disabled = false;
+            document.getElementById("scratch").disabled = false;
+            document.getElementById("other").disabled = false;
+        } else {
+            document.getElementById("dent").disabled = true;
+            document.getElementById("rim").disabled = true;
+            document.getElementById("scratch").disabled = true;
+            document.getElementById("other").disabled = true;
+        }
+    }
+
+    function check1() {
+
+        for (i = 0; i < document.getElementsByName('flexSwitchCheck').length; i++) {
+            // alert("this radio button was clicked: " + document.getElementsByName('inlineRadioOptions').length)
+
+            // alert("this radio button was clicked: " + document.getElementsByClassName('post-add-form')[i].id);
+
+            if (document.getElementsByName('flexSwitchCheck')[i].checked == true) {
+                //alert("this radio button was clicked: " + i);
+                // alert("this radio button was clicked: " + document.getElementsByName('inlineRadioOptions').length)
+                for (j = 5 * i + 1; j < 5 * i + 5; j++) {
+                    //alert("which radio: " + j);
+                    document.getElementsByClassName('form-check-input')[j].disabled = false;
+                    document.getElementsByClassName('form-check-input')[j].setAttribute('name', "inlineRadioOptions" + i)
+                    // alert("this radio button was clicked: " + document.getElementsByName('inlineRadioOptions')[j].id);
+                    // document.getElementById(document.getElementsByName('inlineRadioOptions')[j].id).disabled = false;
+                }
+
+            } else {
+                for (j = 5 * i + 1; j < 5 * i + 5; j++) {
+                    // document.getElementsByName('inlineRadioOptions')[j].disabled = true;
+                    document.getElementsByClassName('form-check-input')[j].disabled = true;
+                }
+            }
+        }
+    }
+
+    let changebtn = document.getElementsByName('change');
+    for (let i = 0; i < changebtn.length; i++) {
+        changebtn[i].onclick = function () {
+            // message(i);
+            if (document.getElementsByName('flexSwitchCheck')[i].checked == true) {
+                for (let j = 0; j < 4; j++) {
+                    if (document.getElementsByName("inlineRadioOptions" + i)[j].checked == true) {
+                        document.getElementsByName('des')[i].innerHTML = document.getElementsByName("inlineRadioOptions" + i)[j].id;
+                        document.getElementsByName("img_label")[i].value = document.getElementsByName("inlineRadioOptions" + i)[j].id;
+                        document.getElementsByName("result")[i].value = document.getElementsByName("inlineRadioOptions" + i)[j].id;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    let changelis = document.getElementsByName('change');
+    for (let i = 0; i < changelis.length; i++) {
+
+        document.getElementsByClassName('post-add-form')[i].setAttribute('id', "post-form" + i)
+        document.getElementsByName('img_id')[i].setAttribute('id', "img_id" + i)
+        document.getElementsByName('img_label')[i].setAttribute('id', "img_label" + i)
+
+        $(document).on('submit', '#post-form' + i, function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url "addtomodel" %}',
+                data: {
+                    img_id: $('#img_id' + i).val(),
+                    img_label: $('#img_label' + i).val(),
+                    csrfmiddlewaretoken: $('input[name = csrfmiddlewaretoken]').val()
+                },
+                success: function () {
+                    alert('Great');
+                }
+
+            })
+
+        });
+    }
+</script>

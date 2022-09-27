@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<style>
+    table {
+        /* Not required only for visualizing */
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table thead tr th {
+        /* Important */
+        background-color: red;
+        position: sticky;
+        z-index: 100;
+        top: 0;
+    }
+
+    td {
+        /* Not required only for visualizing */
+        padding: 1em;
+    }
+</style>
+{% include "header.html" %}
+
+
+<body>
+    {% include "topbar.html" %}
+    <hr>
+    <h3 class="text-center" id="detection_part">Final Classification Report and Download</h3>
+    <hr>
+    <div class="container">
+        <div class="row" id="content">
+            <div class="col-3"></div>
+            <div class="col-5">
+                <h5>Download the Report as Json File</h5>
+            </div>
+            <div class="col-2">
+                <form method="post">
+                    {% csrf_token %}
+                    <a href="{% static 'jsonfile/final_report.json' %}" download class="btn btn-primary btn-sm">
+                        Download </a>
+                </form>
+            </div>
+            <div class="col-2">
+                <form method="GET" id="clear-form"
+                    class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="hidden" name="clear_report" value="true" />
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary btn-danger btn-icon-split">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row pt-4">
+            <div class="col">
+            </div>
+            <div class="col-11">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th style="font-size:12px">Overview</th>
+
+                            <th style="font-size:12px">Image_Name</th>
+                            <th style="font-size:12px">Label</th>
+                            <th style="font-size:12px">Correction</th>
+                            <th style="font-size:12px">View</th>
+                            <th style="font-size:12px">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for photo in data %}
+                        <tr>
+                            <td>
+                                <img src="{{ photo.image.url }}" style="width:100px;">                      
+                            </td>
+
+                            <td>{{ photo.filename }}</td>
+                            <td>{{ photo.description }}</td>
+                            <td style="text-align:center">
+                                <div class="container">
+                                    <div class="row mb-3">
+                                        <div class="col-md-10">
+                                            <div class="form-check form-check-inline row-3">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                    id="Dent" value="option1">
+                                                <label class="form-check-label" for="inlineRadio4">Dent</label>
+                                            </div>
+                                            <div class="form-check form-check-inline row-3">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                    id="Rim" value="option2">
+                                                <label class="form-check-label" for="inlineRadio5">Rim</label>
+                                            </div>
+                                            <div class="form-check form-check-inline row-3">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                    id="Scratch" value="option3">
+                                                <label class="form-check-label" for="inlineRadio6">Scratch</label>
+                                            </div>
+                                            <div class="form-check form-check-inline row-3">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                    id="Other" value="option2">
+                                                <label class="form-check-label" for="inlineRadio5">Other</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                        </div>
+                                        <div class="col-3">
+                                            <form method="post" action="{% url 'change_label' photo.id %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="img_changelabel" id="img_changelabel"
+                                                    value='Other'>
+                                                <button type="submit" name="change_label"
+                                                    class="btn btn-primary btn-sm">
+                                                    Change Label
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="{{ photo.image.url }}" class="btn btn-primary btn-sm" target="_blank">
+                                    View
+                                </a>
+                            </td>
+                            <td>
+                                <form method="post" action="{% url 'delete_photo' photo.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="static/js/jquery-3.4.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="static/js/popper.min.js"></script>
+    <script src="static/js/bootstrap-4.4.1.js"></script>
+
+</body>
+
+</html>
+
+
+<script>
+    let changebtn = document.getElementsByName('change_label');
+    for (let i = 0; i < changebtn.length; i++) {
+        //alert("which radio: ")
+        for (j = 4 * i; j < 4 * i + 4; j++) {
+            //alert("which radio: " + j);
+            // document.getElementsByClassName('form-check-input')[j].disabled = false;
+            document.getElementsByClassName('form-check-input')[j].setAttribute('name', "inlineRadioOptions" + i)
+            // alert("this radio button was clicked: " + document.getElementsByName('inlineRadioOptions')[j].id);
+            // document.getElementById(document.getElementsByName('inlineRadioOptions')[j].id).disabled = false;
+        }
+        changebtn[i].onclick = function () {
+            // message(i);
+            for (let j = 0; j < 4; j++) {
+                //alert("which radio: " + j)
+                if (document.getElementsByName("inlineRadioOptions" + i)[j].checked == true) {
+                    document.getElementsByName("img_changelabel")[i].value = document.getElementsByName("inlineRadioOptions" + i)[j].id;
+                }
+            }
+
+        }
+    }
+</script>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<style>
+    #loadingDiv{
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+    }
+</style>
+
+
+<style>
+    table {
+        /* Not required only for visualizing */
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table thead tr th {
+        /* Important */
+        background-color: red;
+        position: sticky;
+        z-index: 100;
+        top: 0;
+    }
+
+    td {
+        /* Not required only for visualizing */
+        padding: 1em;
+    }
+</style>
+{% include "header.html" %}
+
+
+<body>
+    {% include "topbar.html" %}
+    <hr>
+    <h3 class="text-center" id="detection_part">Image Manage And Model Refine</h3>
+    <hr>
+    <div class="container">
+        <div class="row" id="content">
+            <div class="col-3"></div>
+            <div class="col-5">
+                <h5>Use follows images to refine model</h5>
+            </div>
+            <div class="col-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-sm" onclick="showLoaderOnClick('{% url 'image_list' %}')">Refine Model</button>
+                </form>
+            </div>
+        </div>
+        {% if success %}
+        <div class="row pt-3">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <h4 class="alert-heading">Well done!</h4>
+                <p>During this active learning process, there are {{cur_len}} manually labeled photos and other default trained photos participated toghter in active learning.</p>
+                <p>Through the manuelly labeled image, the model is refinded and the prediction results are automaticly in
+                    Downloads site saved. The followed tabel show
+                    the compare of the model performance after refine.</p>
+                <hr>
+                <div class="container">
+                    <ul class="list-unstyled card-columns" style="column-count: 3;">
+                        <li>Model Performance</li>
+                        <li>Accuracy</li>
+                        <li>Recall</li>
+                        <li>F1</li>
+                        <li>Before Refine</li>
+                        <li>0.867</li>
+                        <li>0.859</li>
+                        <li>0.842</li>
+                        <li>After Refine</li>
+                        <li>{{sum_acc}}</li>
+                        <li>{{sum_recall}}</li>
+                        <li>{{sum_f1}}</li>
+                    </ul>
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        {% endif %}
+        {% if pagestatus == 1 %}
+        <div class="row pt-4">
+            <div class="col">
+            </div>
+            <div class="col-11">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th style="font-size:12px">Overview</th>
+                            <th style="font-size:12px">Image_id</th>
+                            <th style="font-size:12px">Image_Name</th>
+                            <th style="font-size:12px">label</th>
+                            <th style="font-size:12px">View</th>
+                            <th style="font-size:12px">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for photo in data %}
+                        <tr>
+                            <td>
+                                <img src="{{ photo.image.url }}" style="width:100px;">
+                            </td>
+                            <td>{{ photo.id }}</td>
+                            <td>{{ photo.filename }}</td>
+                            <td>{{ photo.description }}</td>
+                            <td>
+                                <a href="{{ photo.image.url }}" class="btn btn-primary btn-sm" target="_blank">
+                                    View
+                                </a>
+                            </td>
+                            <td>
+                                <form method="post" action="{% url 'delete_photoac' photo.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h4>Summary Report</h4>
+                        <p>The performance of the new model for each label</p>
+                        <hr>
+                        <hr>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Precision</th>
+                                <th scope="col">Recall</th>
+                                <th scope="col">Specificity</th>
+                                <th scope="col">F1</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Dent</th>
+                                <td>{{p0}}</td>
+                                <td>{{r0}}</td>
+                                <td>{{s0}}</td>
+                                <td>{{f0}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Other</th>
+                                <td>{{p1}}</td>
+                                <td>{{r1}}</td>
+                                <td>{{s1}}</td>
+                                <td>{{f1}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Rim</th>
+                                <td>{{p2}}</td>
+                                <td>{{r2}}</td>
+                                <td>{{s2}}</td>
+                                <td>{{f2}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Scratch</th>
+                                <td>{{p3}}</td>
+                                <td>{{r3}}</td>
+                                <td>{{s3}}</td>
+                                <td>{{f3}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col">
+                        <h4>Confusion Matrix</h4>
+                        <img src="{%static 'images/AL_accuracy.png'%}" class="img-rounded">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="static/js/jquery-3.4.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="static/js/popper.min.js"></script>
+    <script src="static/js/bootstrap-4.4.1.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+
+</body>
+
+</html>
+
+<script>
+    function showLoaderOnClick(url) {
+        showLoader();
+        window.location=url;
+    }
+  function showLoader(){
+        //$('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
+        $('body').append('<div style="" id="loadingDiv">'  
+            + '<div class="d-flex flex-column align-items-center justify-content-center"> '
+            + '<div class="row">'
+            +   '<div class="spinner-border" role="status">'
+            +        '<span class="sr-only">Loading...</span>'
+            +    '</div>'
+            + '</div>'
+            + ' <div class="row">'
+            +   '<strong>Refining Model</strong>'
+            + '</div>'
+            +'</div></div>');
+    }
+</script>

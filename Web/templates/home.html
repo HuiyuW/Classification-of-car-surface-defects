@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+{% include "header.html" %}
+
+<body>
+  {% include "topbar.html" %}
+  {% if pagestatus == 1 %}
+  {% include "uploader.html" %}
+  {% include "detection.html" %}
+  {% endif%}
+
+  {% if pagestatus == 2 %}
+  {% include "detection.html" %}
+  {% endif%}
+
+  <hr>
+  <footer class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <p>Copyright © MyWebsite. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="static/js/jquery-3.4.1.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="static/js/popper.min.js"></script>
+  <script src="static/js/bootstrap-4.4.1.js"></script>
+
+</body>
+
+</html>

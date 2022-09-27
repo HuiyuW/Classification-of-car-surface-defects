@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: smbcreds-group06
+  namespace: group06
+type: Opaque
+data:
+  username: Z3JvdXAwNg==
+  password: dElDSGVWeVdpdEVu

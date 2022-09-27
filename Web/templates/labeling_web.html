@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Labeling Web</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content=""><!-- STYLESHEET CSS FILES -->
+  <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/animate.min.css">
+  <link rel="stylesheet" href="static/css/font-awesome.min.css">
+  <link rel="stylesheet" href="static/css/nivo-lightbox.css">
+  <link rel="stylesheet" href="static/css/nivo_themes/default/default.css">
+  <link rel="stylesheet" href="static/css/templatemo-label.css">
+</head>
+
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+  <!-- navigation section -->
+  <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span
+            class="icon icon-bar"></span> <span class="icon icon-bar"></span> <span class="icon icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">Labeling</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/">HOME PAGE</a></li>
+          <li><a href="#intro" class="smoothScroll">INTRODACTION</a></li>
+          <li><a href="#portfolio" class="smoothScroll">DAMAGE TYPES</a></li>
+          <li><a href="#price" class="smoothScroll">USAGE DESCRIPTION</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- intro section -->
+  <section id="intro">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 title">
+          <h4>HERE YOU CAN LABEL YOUR DAMAGE IMAGE</h4>
+          <h2>IMAGE LABELING TOOL</h2>
+          <hr>
+          <p>The interface for uploading single or multiple images which the user can easily use for labeling, including
+            an export functionality to download the label information.</p>
+
+
+          <form method="post" action="{% url 'image_label'%}">
+            {% csrf_token %}
+            <button class="btn  btn-default"><em>
+                <h5> GET STARTED </h5>
+              </em> </button>
+
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- portfolio section -->
+  <div id="portfolio">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 title">
+          <h2>Damage types</h2>
+          <hr>
+          <p>Four damage types are assumed to exist on the vehicle, which are dent,rim,scratch and other. These four
+            classes of damages are shown below </p>
+        </div>
+        <div class="col-md-12 col-sm-12"></div>
+        <div class="col-md-3 col-sm-3 wow fadeIn" data-wow-delay="0.6s"><img src="static/images/dent_c.jpg"
+            alt="portfolio img">
+          <h4>Dent</h4>
+        </div>
+        <div class="col-md-3 col-sm-3 wow fadeIn" data-wow-delay="0.6s"><img src="static/images/rim_c.jpg"
+            alt="portfolio img">
+          <h4>Rim</h4>
+        </div>
+        <div class="col-md-3 col-sm-3 wow fadeIn" data-wow-delay="0.6s"><img src="static/images/scratch_c.jpg"
+            alt="portfolio img">
+          <h4>Scratch</h4>
+        </div>
+        <div class="col-md-3 col-sm-3 wow fadeIn" data-wow-delay="0.6s"><img src="static/images/other_c.jpg"
+            alt="portfolio img">
+          <h4>Other</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- price section -->
+  <div id="price">
+    <div class="container">
+      <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 title">
+        <h2>Usage Description</h2>
+        <hr>
+        <p>Please follow the 3 steps below to label the images</p>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="plan wow bounceIn" data-wow-delay="0.3s">
+          <div class="plan_title">
+            <h3>STEP ONE</h3>
+          </div>
+          <h4>Choosing</h4>
+          <p> <small>Please select one or more images to&nbsp;</small></p>
+          <p><small>upload to the website</small> </p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="plan wow bounceIn" data-wow-delay="0.6s">
+          <div class="plan_title">
+            <h3>STEP TWO</h3>
+          </div>
+          <h4>Labeling</h4>
+          <p> <small>Select the appropriate damage type</small></p>
+          <p><small>&nbsp;to uploaded photos</small></p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="plan wow bounceIn" data-wow-delay="0.9s">
+          <div class="plan_title">
+            <h3>STEP THREE</h3>
+          </div>
+          <h4>Download</h4>
+          <p> <small>After labeling, please press the download button</small></p>
+          <p><small>&nbsp;to download the .json file</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- JAVASCRIPT JS FILES -->
+  <script src="static/js/jquery.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+  <script src="static/js/nivo-lightbox.min.js"></script>
+  <script src="static/js/smoothscroll.js"></script>
+  <script src="static/js/jquery.sticky.js"></script>
+  <script src="static/js/jquery.parallax.js"></script>
+  <script src="static/js/wow.min.js"></script>
+  <script src="static/js/custom.js"></script>
+</body>
+
+</html>

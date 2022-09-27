@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Website Support</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content=""><!-- STYLESHEET CSS FILES -->
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/animate.min.css">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/nivo-lightbox.css">
+    <link rel="stylesheet" href="static/css/nivo_themes/default/default.css">
+    <link rel="stylesheet" href="static/css/templatemo-label.css">
+</head>
+
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+    <!-- navigation section -->
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span
+                        class="icon icon-bar"></span> <span class="icon icon-bar"></span> <span
+                        class="icon icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">WEBSITE</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="#intro" class="smoothScroll">INTRODACTION</a></li>
+                    <li><a href="#portfolio" class="smoothScroll">IMAGE CLASSIFICATION</a></li>
+                    <!-- <li><a href="#correction" class="smoothScroll">CORRECTION</a></li> -->
+                    <li><a href="#report" class="smoothScroll">DOWNLOAD</a></li>
+                    <li><a href="#expansion" class="smoothScroll">EXPANSION</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- intro section -->
+    <section id="intro">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 title">
+                    <h3>Manual Correction</h3>
+                    <h3>WEBSITE FUNCTION INTRODUCTION</h3>
+                    <hr>
+                    <p>We have build the classification model for distinguishing the cropped damage patches in the four
+                        classes: "dent", "scratch", "rim" and "other". In this page, we will introduce how you could
+                        achieve the prediction of
+                        image classification, model refinement and dataset expansion through this website quickly and
+                        easily.</p>
+                </div>
+            </div>
+            <a href="#portfolio" class="btn btn-default smoothScroll">GET STARTED</a>
+        </div>
+    </section>
+    <!-- portfolio section -->
+    <div id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3  col-md-6">
+                    <h3>Image Classification</h3>
+                    <hr>
+                </div>
+                <div class="col-md-12">
+                    <h5>Step1</h5>
+                    <p>Go to "Home" page and click "classification" button. Then click 
+                        "Classification" on that page. </p>
+                </div>
+            </div>
+            <div class="row">
+                <img src="static/images/classification_step1.jpg" class="rounded mx-auto d-block" style="width:780px;height:600px;"
+                    alt="...">
+            </div>
+            <div class="col-md-12">
+                <h5>Step2: Upload images and choose model</h5>
+                <p> Click "Select Images" to upload the images that you want to classify
+                    (You can choose multiple images at the same time and the supported formats of images are 
+                    .jpg, .jpeg, .webp, .png). After choosing images, make sure to submit your
+                    choices
+                    by clicking "submit" button. Then you can see your chosen images on the screen. 
+                    Choose a model in "Model choosing" menu (the default option is InceptionV3 model). If you choose InceptionV3 model or 
+                    ResNet18 model. Just confirm your chosen model by clicking "confirm" button and you can directly click "Detection" and go to "Final classification report and Download" module in this
+                    site to see how to check the results and get the final report. 
+                </p>
+            </div>
+            <div class="row">
+                <img src="static/images/classification_step2.png" class="rounded mx-auto d-block" style="width:780px;height:400px;"
+                    alt="...">
+            </div>
+            <div class="col-md-12">
+                <h5>Active Learning and Model Refine</h5>
+                <p> 1. If you choose Active Learning model, system will automatically choose "ResNet18 + Active learning" for classification.
+                  You can choose how many uncertainty
+                  images you want the model to choose for you and choose which strategy you decide to use 
+                  in active learning. Then click "confirm" button to save your choices and click "Detect" button. 
+                </p>
+            </div>
+            <div class="row">
+                <img src="static/images/active_learning.jpg" class="rounded mx-auto d-block" style="width:780px;height:400px;"
+                    alt="...">
+            </div>
+            <div class="col-md-12">
+                <p>  2. Next, "active learning" method will choose the uncertainty images for you to label. If you think the
+                    labels of the images are already correct, click "Add to model". If you think the label of the corresponding
+                    image is not correct, just enable the "Manual Marketing" button and choose the correct label that 
+                    you think and click "change" button. Then the label of this image will be changed and don't forget to 
+                    add it to model by clicking "Add to Model".(Dont't forget to click "add to model" for all images in this
+                    website page!)
+                </p>
+            </div>
+            <div class="row">
+                <img src="static/images/active_learning2.png" class="rounded mx-auto d-block" style="width:780px;height:400px;"
+                    alt="...">
+            </div>
+            <div class="col-md-12">
+                <p>  3. You can see the information of all images which was chosen by active learning with correct labels in page "Active Learning".
+                    And you can view these images through "view" button. By clicking "Delete" button, you can delete the corresponding
+                    images if you don't want to use it for refining the model.
+                    Click the button "Refine Model" to use the images in this page to refine our machine learning model. This process
+                    will take a few minutes. After refining, you can see the active learning model analysis report in this page. The 
+                    active learning and model refine part ends here and you can go to "Final classification report and Download" module in this 
+                    website to get the finally report.
+                </p>
+            </div>
+            <div class="row">
+                <img src="static/images/active_learning4.jpg" class="rounded mx-auto d-block" style="width:780px;height:600px;"
+                    alt="...">
+            </div>
+        </div>
+    </div>
+
+    <!-- correction section -->
+    <!-- <div id="correction">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3  col-md-6 col-sm-offset-2 col-sm-8">
+                    <h3>Manual Correction</h3>
+                    <hr>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <h5>Step1: Manual correction</h5>
+                    <p>Go to "Home" page and click "selected Images" to choose the images that you want to classify
+                        (You can choose multiple images at the same time). After choosing images, you can submit your
+                        choises
+                        by clicking "submit" button. Then you can see your chosen images on the screen.Choose a model by
+                        clicking
+                        "Model" menu and you can detect the by clicking
+                        "Detection" button. Then you can see the classification results of all chosen images on the
+                        detection report. </p>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <h5>Step2: Model Refine</h5>
+                    <p>In "Image List", you can see the information of added revised images, including image id, image
+                        name and the
+                        corrected image label.
+                        Download of the images is also possible by clicking "Download image".
+                        Refine the model by simply clicking "Refine Model".Or if you regret it, you can delete the
+                        correspoding images
+                        by clicking "delete". </p>
+                </div>
+            </div>
+            <div class="row">
+                <img src="static/images/step2.1.png" class="rounded mx-auto d-block" style="width:780px;height:400px;"
+                    alt="...">
+                <img src="static/images/step2.2.png" class="rounded mx-auto d-block" style="width:780px;height:400px;"
+                    alt="...">
+            </div>
+
+        </div>
+    </div>
+    <hr> -->
+    <!-- correction section -->
+    <div id="report">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3  col-md-6 col-sm-offset-2 col-sm-8">
+                    <h3>Final classification report and Download</h3>
+
+                </div>
+                <div class="col-md-12 col-sm-6">
+
+                    <p>Finally let's go to Download page. Information of images which were selected and uploaded are shown here no matter which model you
+                        have chosen for classification. You can also
+                        view the images through "view" button and delete images through "Delete" button.
+                        If you think the label of the corresponding image is wrong, just choose the correct label of this image
+                        and click "change label" button. Then the label will be changed. Finally you can get the final classification report as json file
+                        by clicking the "Download" button. 
+                        Please click "clear" on this page to clear the images in this page if you want to reselect 
+                        images for a new round of classification. </p>
+                </div>
+            </div>
+            <img src="static/images/report1.png" class="rounded mx-auto d-block" style="width:780px;height:400px;"
+                alt="...">
+        </div>
+    </div>
+
+    <div id="expansion">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3  col-md-6">
+                    <br>
+                    <br><br>
+                    <h3>Data Expansion</h3>
+                    <hr>
+                </div>
+                <div class="col-md-12">
+                    You can expand the dataset through "Image Label" page in this website.
+                    <br>
+                    After uploading the unlabeled images, these images will show in the "Unlabeled Image table".
+                    Then you can choose the label for the corresponding image in the "Label-choise" column in
+                    "Unlabeled Image Table".
+                    The unlabeled images will go into the "Labeled Image Table" after labeling.
+                    If you accidentally mislabeled the image, you can remove the image by clicking "remove" in the
+                    "Labeled Image table"
+                    and the image will return to "Unlabeled Image List". After labeling all images, the information of
+                    labeled images
+                    can be downloaded as Json file with name "image_label.json". "Labeled Images" and "Unlabeled Images" are buttons that help you 
+                    quickly go to the corresponding list.
+                </div>
+            </div>
+            <div class="row">
+                <img src="static/images/image_expand.PNG" class="rounded mx-auto d-block" style="width:780px;height:400px;"
+                    alt="...">
+                <img src="static/images/data_expand2.png" class="rounded mx-auto d-block" style="width:780px;height:400px;"
+                    alt="...">
+            </div>
+        </div>
+    </div>
+    <!-- price section -->
+    <!--
+    <div id="price">
+        <div class="container">
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 title">
+                <h2>Usage Description</h2>
+                <hr>
+                <p>Please follow the 3 steps below to label the images</p>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="plan wow bounceIn" data-wow-delay="0.3s">
+                    <div class="plan_title">
+                        <h3>STEP ONE</h3>
+                    </div>
+                    <h4>Choosing</h4>
+                    <p> <small>Please select one or more images to&nbsp;</small></p>
+                    <p><small>upload to the website</small> </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="plan wow bounceIn" data-wow-delay="0.6s">
+                    <div class="plan_title">
+                        <h3>STEP TWO</h3>
+                    </div>
+                    <h4>Labeling</h4>
+                    <p> <small>Select the appropriate damage type</small></p>
+                    <p><small>&nbsp;to uploaded photos</small></p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="plan wow bounceIn" data-wow-delay="0.9s">
+                    <div class="plan_title">
+                        <h3>STEP THREE</h3>
+                    </div>
+                    <h4>Download</h4>
+                    <p> <small>After labeling, please press the download button</small></p>
+                    <p><small>&nbsp;to download the .json file</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <!-- JAVASCRIPT JS FILES -->
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/nivo-lightbox.min.js"></script>
+    <script src="static/js/smoothscroll.js"></script>
+    <script src="static/js/jquery.sticky.js"></script>
+    <script src="static/js/jquery.parallax.js"></script>
+    <script src="static/js/wow.min.js"></script>
+    <script src="static/js/custom.js"></script>
+</body>
+
+</html>

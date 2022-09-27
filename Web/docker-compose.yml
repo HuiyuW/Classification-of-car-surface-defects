@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  ami_group06:
+    image: gitlab.ldv.ei.tum.de:5005/ami2022/group06
+    container_name: ami_group06_container
+    build: .
+    ports:
+        - 8888:8888
+    volumes:
+      - ami_share:/mnt
+
+volumes:
+  ami_share: 
+    driver_opts:
+      type: cifs
+      o: "username=group06,password=tICHeVyWitEn"
+      device: //10.195.8.70/group06 

@@ -1,0 +1,41 @@
+image: docker:git
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - deploy
+
+ami_group06_build_push_image:       # This job runs in the build stage, which runs first.
+  stage: build
+  before_script:
+    - echo "before_script"
+    - echo $CI_PROJECT_DIR
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  script:
+    - echo "name check"
+    - echo $CI_REGISTRY_IMAGE
+    - echo "build the image"
+    - docker build -f Web/Dockerfile -t $CI_REGISTRY_IMAGE:latest  . 
+    - echo "push image to Gitlab Container Registry"
+    - docker push $CI_REGISTRY_IMAGE:latest
+    - echo "Compile complete."
+  after_script: 
+    - echo "docker logout"
+    - docker logout
+
+  only:
+    - master
+  tags: 
+    - ami
+
+ami_group06_deploy_image:
+  stage: deploy
+  script: 
+    - echo "deploy docker image in Kubernetes"
+    - kubectl get nodes
+    - kubectl apply -f Web/group06_deployment_service.yaml
+    - echo "deploy successfully"
+    - echo "Now you can check the website by http://10.195.8.77:30625/"
+  
+  only:
+    - master
+  tags:
+    - ami

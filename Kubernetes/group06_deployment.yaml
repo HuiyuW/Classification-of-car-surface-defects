@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-group06
+  labels:
+    app: django
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+        - image: gitlab.ldv.ei.tum.de:5005/ami2022/group06
+          name: container-group06
+          ports:
+            - containerPort: 8888
+      imagePullSecrets:
+        - name: imgcred-group06

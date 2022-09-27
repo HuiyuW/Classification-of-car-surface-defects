@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<style>
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+  .b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+  }
+
+  .b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+  }
+
+  .bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+  }
+
+  .nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+  }
+
+  .nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+</style>
+{% include "header.html" %}
+
+<body>
+  {% include "topbar.html" %}
+  <main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
+      <div class="col-md-6 px-0">
+        <a name="Model introduction">
+          <h1 class="display-4 fst-italic">Model introduction</h1>
+          <p class="lead my-3">Accuracy, speed, robustness, all your expectations are met by our classification model.
+          </p>
+          <p class="lead mb-0"><a href="#Model strcutrue" class="text-white fw-bold">More details...</a></p>
+      </div>
+    </div>
+    <div class="row g-5">
+      <div class="col-md-8">
+        <article class="blog-post">
+          <h2 class="blog-post-title mb-1">Model introduction</h2>
+          <p class="blog-post-meta">August 14, 2022 by <a href="{% url 'startPage' %}">AMI Group 06</a></p>
+
+          <p>Unlike handwritten numbers or flowers which have a relative clear shape definition, the faults on the
+            surface of vehicle are often ever-changing.
+            Therefore, the conventional machine learning algorithm that analyzes the intensity change of a single image
+            pixel is no longer applicable. </p>
+          <hr>
+          <p>The deep neural network algorithm that can effectively extract the features of a certain area of the
+            picture through convolution calculation has become our new choice.
+            Here we introduce three neural network algorithm models which have achieved very good performance in car
+            damage classification problems.</p>
+          <a name="Model strcutrue"></a>
+          <h2>Model strcutrue</h2>
+
+          <p>To compare the performance of different models for vehicle damage classification detection, the team
+            members consider to using two different neural network structures.</p>
+          <ul>
+            <li>
+              <h4>Inception V3</h4>
+            </li>
+              <p>Inception-v3 is a 48-layer deep pre-trained convolutional neural network that has already been trained on over a million images from the ImageNet database. 
+                As a result, the network has learned detailed feature representations for a diverse set of images.</p>
+            <img src="{%static 'images/Inception V3.png'%}" class="img-thumbnail">
+              <p>On the basis of V2, Inception v3 divides a huge convolution into smaller convolutions, reducing
+                the computation of parameters while maintaining the perceptual field. It is designed to compute the
+                convolution result of the input, then calculate the pooling result of the input, and concatenate the
+                convolution result with the pooling result because the maximum pooling layer in downsampling will
+                result in significant information loss. As a result, less computation and information are required.
+              </p>  
+            <li>
+              <h4>ResNet18</h4>
+            </li>
+            <p>In order to extract key features from training data and discover significant patterns, network depth
+              is crucial for solving complicated image analysis problems using deep learning. However, because
+              of the gradients, adding additional neural layers can be computationally expensive and difficult.
+            </p>
+            <p>
+              By using shortcuts or skip connections to skip over some layers, a residual network, or ResNet
+              for short, is an artificial neural network that aids in the construction of deeper neural networks.
+              By skipping, deeper network layers can be built without running into the issue of disappearing
+              gradients.
+              </p>
+            <img src="{%static 'images/ResNet18.png'%}" class="img-thumbnail">
+          </ul>
+          <p>In order to avoid overfitting or failing to generalize the model on our picture dataset, 
+            we pick ResNet18 as our final model for training active learning because its complexity is halfway between ResNet50 and basic CNN.
+             We can not only consider the accuracy of model identification but ignore the speed of model identification and the complexity of the model.</p>
+
+          <a name="Model performance">
+            <h2>Model performance</h2>
+            <p>Here we list the performance of all our used models, the primary criterion for choosing models is total
+              classification accuracy. In addition, other factors such as the F1-score of the model classification and
+              the computation time used are also considered.</p>
+            <h4>Model performance table</h4>
+            <p>Compare the performance of models with conventional machine learning</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Total Accuracy</th>
+                  <th>F1 - Score</th>
+                  <th>Recall</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>K- Nearest Neighbor</td>
+                  <td>0.643</td>
+                  <td>0.652</td>
+                  <td>0.646</td>
+                </tr>
+                <tr>
+                  <td>Logistic Regression</td>
+                  <td>0.671</td>
+                  <td>0.628</td>
+                  <td>0.633</td>
+                </tr>
+                <tr>
+                  <td>Support Vector Machine</td>
+                  <td>0.713</td>
+                  <td>0.727</td>
+                  <td>0.719</td>
+                </tr>
+                <tr>
+                  <td>Random Forest</td>
+                  <td>0.744</td>
+                  <td>0.709</td>
+                  <td>0.689</td>
+                </tr>
+                <tr>
+                  <td>Inception V3</td>
+                  <td>0.853</td>
+                  <td>0.825</td>
+                  <td>0.833</td>
+                </tr>
+                <tr>
+                  <td>ResNet18</td>
+                  <td>0.867</td>
+                  <td>0.842</td>
+                  <td>0.859</td>
+                </tr>
+                </tfoot>
+            </table>
+
+            <a name="Active learning">
+              <h2>Active learning</h2>
+              <p>When the web page is officially deployed, users will try to use our damage classification web page to
+                analyze the damage of their car. Faced with infinite stream of user input photos of vehicle breakdowns,
+                it is acceptable for the webpage to occasionally misclassify.
+                But the question is, how do we fully utilize the most of these mispredicted photos to help us improve
+                our models?
+                With new added small number of labels, we can use active learning to optimize our model and correct
+                mispredictions.</p>
+              <img src="{%static 'images/Active learning.png'%}" class="img-thumbnail">
+              <p>Among the above three neural network models,
+                we prefer to choose the fault classification model based on ResNet18 as our final model.
+                Therefore, we only added active learning process to ResNet18.
+                The classification system can continuously improve the accuracy and robustness of classification as new
+                pictures are input by the user.</p>
+        </article>
+
+        <article class="blog-post">
+          <a name="Reference">
+            <h2 class="blog-post-title mb-1">Reference</h2>
+            <!--
+            <p class="blog-post-meta">[1] Sandler, Mark, et al. <a
+                href="https://openaccess.thecvf.com/content_cvpr_2018/html/Sandler_MobileNetV2_Inverted_Residuals_CVPR_2018_paper.html">"Mobilenetv2:
+                Inverted residuals and linear bottlenecks."</a> Proceedings of the IEEE conference on computer vision
+              and pattern recognition. 2018.</p>
+            -->
+            <p class="blog-post-meta">[1] Szegedy, Christian, et al. <a
+                href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Szegedy_Going_Deeper_With_2015_CVPR_paper.html">"Going
+                deeper with convolutions."</a> Proceedings of the IEEE conference on computer vision and pattern
+              recognition. 2015.</p>
+            <p class="blog-post-meta">[2] Jakhar, Shyo Prakash, Amita Nandal, and Rahul Dixit.<a
+              href="https://link.springer.com/chapter/10.1007/978-981-15-6067-5_42">"Classification and Measuring 
+              Accuracy of Lenses Using Inception Model V3." </a> Innovations in Computational Intelligence and Computer Vision. 
+              Springer, Singapore, 2021. 376-383.</p>
+            <p class="blog-post-meta">[3] He, Kaiming, et al. <a
+                href="https://ieeexplore.ieee.org/document/7780459">"Deep residual learning for image recognition."</a>
+              Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.</p>
+            <p class="blog-post-meta">[4] Settles, Burr. <a href="https://minds.wisconsin.edu/handle/1793/60660">"Active
+                learning literature survey."</a> (2009).</p>
+        </article>
+      </div>
+
+      <div class="col-md-4">
+        <div class="position-sticky" style="top: 2rem;">
+          <div class="p-4 mb-3 bg-light rounded">
+            <h4 class="fst-italic">About</h4>
+            <p class="mb-0">Here we briefly introduce the structure and performance of the model deployed on the WEB.
+              For more details, please refer to the report.</p>
+          </div>
+
+          <div class="p-4">
+            <h4 class="fst-italic">Table of contents</h4>
+            <ol class="list-unstyled mb-0">
+              <li><a href="#Model introduction">Model introduction</a></li>
+              <li><a href="#Model strcutrue">Model strcutrue</a></li>
+              <li><a href="#Model performance">Model performance</a></li>
+              <li><a href="#Active learning">Active learning</a></li>
+              <li><a href="#Reference">Reference</a></li>
+            </ol>
+          </div>
+
+          <div class="p-4">
+            <h4 class="fst-italic">Reference</h4>
+            <ol class="list-unstyled">
+              <li><a href="/">Homepage</a></li>
+              <!--<li><a href="https://youtu.be/VPQb18ktEk4">Video</a></li>-->
+              <li><a href="https://gitlab.ldv.ei.tum.de/">Github</a></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if success %}
+    <div class="row pt-3">
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit
+          longer so that you can see how spacing within an alert works with this kind of content.</p>
+        <hr>
+        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    {% endif %}
+
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="static/js/jquery-3.4.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="static/js/popper.min.js"></script>
+    <script src="static/js/bootstrap-4.4.1.js"></script>
+
+</body>
+
+</html>

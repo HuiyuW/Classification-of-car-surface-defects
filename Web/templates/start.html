@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <title>AMI GROUP 6 WEBSITE</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <!-- STYLESHEET CSS FILES -->
+  <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/animate.min.css">
+  <link rel="stylesheet" href="static/css/font-awesome.min.css">
+  <link rel="stylesheet" href="static/css/nivo-lightbox.css">
+  <link rel="stylesheet" href="static/css/nivo_themes/default/default.css">
+  <link rel="stylesheet" href="static/css/templatemo-style.css">
+</head>
+<style>
+  .button_style {
+    background-color: Transparent;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+  <!-- preloader section -->
+  <div class="preloader">
+    <div class="sk-spinner sk-spinner-rotating-plane"></div>
+  </div>
+  <!-- home section -->
+  <section id="home">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <h1 class="wow bounceInDown rotate">AMI</h1>
+          <h2 class="wow bounce animated animated" style="visibility: visible; animation-name: bounce;">WELCOME TO GROUP
+            6</h2>
+          <a href="#intro" class="btn btn-default smoothScroll">GET STARTED</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- navigation section -->
+  <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span
+            class="icon icon-bar"></span> <span class="icon icon-bar"></span> <span class="icon icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">Group 6</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#home" class="smoothScroll">HOME</a></li>
+          <li><a href="#intro" class="smoothScroll">INTRO</a></li>
+          <li><a href="#work" class="smoothScroll">OUR WORK</a></li>
+          <li><a href="#team" class="smoothScroll">TEAM</a></li>
+          <li><a href="#contact" class="smoothScroll">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- intro section -->
+  <section id="intro">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 title">
+          <h4>WELCOME TO OUR WEBSITE</h4>
+          <h2>Labeling &amp; Classification</h2>
+          <hr>
+          <p>It is a classification model for distinguishing the cropped damage patches in the four classes:
+            &ldquo;dent&rdquo;, &ldquo;scratch&rdquo;, &ldquo;rim&rdquo; and &ldquo;other&rdquo;.We will provide you
+            with a dataset that contains images with all different types of damages. The challenge is that there are no
+            labels that we can provide you – this means your algorithm should train as efficient as possible by
+            applying.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- work section -->
+  <section id="work">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-4 title">
+          <h2>Content</h2>
+          <hr>
+          <p>build a classification model for distinguishing the cropped damage
+            patches in the four classes: “dent”, “scratch”, “rim” and “other”.</p>
+        </div>
+        <div class="col-md-8 col-sm-8">
+          <div class="col-md-6 col-sm-6 bg-black">
+            <form method="post" action="{% url 'labeling_web'%}">
+              {% csrf_token %}
+              <button type="submit" class="fa fa-compass btn button_style"></button>
+            </form>
+            <h3>Labeling</h3>
+          </div>
+
+          <div class="col-md-6 col-sm-6 bg-red">
+            <form method="post" action="{% url 'support'%}">
+              {% csrf_token %}
+              <button type="submit" class="fa fa-compass btn button_style"></button>
+            </form>
+            <h3>Website</h3>
+          </div>
+
+          <div class="col-md-6 col-sm-6 bg-red btn">
+            <form method="post" action="{% url 'model_introduce'%}">
+              {% csrf_token %}
+              <button type="submit" class="fa fa-compass btn button_style"></button>
+            </form>
+            <h3>Classification</h3>
+          </div>
+          <a href="https://www.youtube.com/channel/UCXvKvZtF3pL0RIcO6XKddOw/featured" target="_blank">
+            <div class="col-md-6 col-sm-6 bg-black btn"> <i class="fa fa-camera"></i>
+              <h3>Video</h3>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- team section -->
+  <section id="team">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 title">
+          <h1>Our team</h1>
+          <hr>
+          <p></p>
+        </div>
+
+        <div class="col-sm-4 col-xs-6 wow fadeIn col-md-12" data-wow-delay="0.9s"><img
+            src="{%static 'images/group.png'%}" class="img-responsive" alt="team img">
+          <div class="team-des">
+            <h4></h4>
+            <h3>We combine powerful AI technology with exceptional customer service to make car damage management simple.</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-5">
+        <h5 class="card-header"> </h5>
+        <div class="card-body">
+          <h5 class="card-title"> </h5>
+          <p class="card-text"> </p>
+          <a href="#" class="btn btn-primary">Go back to Top</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- contact section -->
+
+  <!--
+  <section id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 title">
+          <h2>Contact Us</h2>
+          <hr>
+          <p>if you have any question about our project or want to discuss technical thesis, you are welcomed to leave
+            your email and send your question to us</p>
+        </div>
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 contact-form wow fadeInUp" data-wow-delay="0.9s">
+          <form action="#" method="post">
+            <input type="text" class="form-control" placeholder="Name">
+            <input type="email" class="form-control" placeholder="Email">
+            <textarea class="form-control" placeholder="Message" rows="6"></textarea>
+            <input type="submit" class="form-control" value="SEND EMAIL">
+          </form>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  <!-- footer section -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <!--
+        <div class="col-md-12 col-sm-12">
+          <h2 class="wow fadeIn" data-wow-delay="0.9s">Follow Us</h2>
+          <ul class="social-icon">
+            <li><a href="#" class="fa fa-facebook wow bounceIn" data-wow-delay="0.3s"></a></li>
+            <li><a href="#" class="fa fa-twitter wow bounceIn" data-wow-delay="0.6s"></a></li>
+            <li><a href="#" class="fa fa-github wow bounceIn" data-wow-delay="0.9s"></a></li>
+            <li><a href="#" class="fa fa-phone wow bounceIn" data-wow-delay="0.9s"></a></li>
+          </ul>
+        </div> -->
+        <div class="col-md-12 col-sm-12 copyright">
+          <p>Copyright © 2022 AMI
+
+            | Design by <a target="_blank" rel="nofollow" href="http://www.google.com">Group 6</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- JAVASCRIPT JS FILES -->
+  <script src="static/js/jquery.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+  <script src="static/js/nivo-lightbox.min.js"></script>
+  <script src="static/js/smoothscroll.js"></script>
+  <script src="static/js/jquery.sticky.js"></script>
+  <script src="static/js/jquery.parallax.js"></script>
+  <script src="static/js/wow.min.js"></script>
+  <script src="static/js/custom.js"></script>
+</body>
+
+</html>

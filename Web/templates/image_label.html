@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+{% include "header.html" %}
+
+<body>
+    {% include "topbar.html" %}
+    <hr>
+    <h3 class="text-center" id="detection_part">Upload Image And Labelling </h3>
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {%csrf_token%}
+
+                        <div class="mb-3">
+                            <label for="files" class="btn btn-dark">Select Images</label>
+                            <input type="file" id="files" name="labelimages" multiple>
+                            <input type="submit" value="submit">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="col-2">
+                <a href="#unlabeled_part" class="btn btn-primary btn-sm smoothScroll">
+                    Unlabeled Image
+                </a>
+            </div>
+            <div class="col-2">
+                <a href="#labeled_part" class="btn btn-primary btn-sm smoothScroll">
+                    Labeled Image
+                </a>
+            </div>
+        </div>
+    </div>
+    <section id="unlabeled_part">
+        <hr>
+        <h3 class="text-center">Unlabeled Image Tabel</h3>
+        <hr>
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+
+                </div>
+                <div class="col-2">
+                    <a href="#labeled_part" class="btn btn-primary btn-sm smoothScroll">
+                        Labeled Image
+                    </a>
+                </div>
+                
+                <div class="col-2">
+                    <form method="GET" id="clear-form"
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="hidden" name="clear_unlabeled" value="true" />
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary btn-danger btn-icon-split">
+                                    Clear
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row pt-4">
+                <div class="col">
+                </div>
+                <div class="col-11">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th style="font-size:12px">Overview</th>
+                                <th style="font-size:12px">Image Id</th>
+                                <th style="font-size:12px">Image Name</th>
+                                <th style="text-align:center; font-size:12px">Label-Choice</th>
+                                <th style="font-size:12px">View</th>
+                                <th style="font-size:12px">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for photo in labeldata %}
+                            {% if not photo.labelstatus %}
+                            <tr>
+                                <td>
+                                    <img src="{{ photo.image.url }}" style="width:100px;">
+                                </td>
+                                <td>{{ photo.id }}</td>
+                                <td>{{ photo.filename }}</td>
+                                <td style="text-align:center">
+                                    <div class="container">
+                                        <div class="row mb-3">
+                                            <div class="col-md-10">
+                                                <div class="form-check form-check-inline row-3">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="Dent" value="option1">
+                                                    <label class="form-check-label" for="inlineRadio4">Dent</label>
+                                                </div>
+                                                <div class="form-check form-check-inline row-3">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="Rim" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio5">Rim</label>
+                                                </div>
+                                                <div class="form-check form-check-inline row-3">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="Scratch" value="option3">
+                                                    <label class="form-check-label" for="inlineRadio6">Scratch</label>
+                                                </div>
+                                                <div class="form-check form-check-inline row-3">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="Other" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio5">Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3">
+                                            </div>
+                                            <div class="col-3">
+                                                <form method="post" action="{% url 'add_label' photo.id %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="img_addlabel" id="img_addlabel"
+                                                        value='Other'>
+                                                    <button type="submit" name="add_label"
+                                                        class="btn btn-primary btn-sm">
+                                                        Add Label
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="{{ photo.image.url }}" class="btn btn-primary btn-sm" target="_blank">
+                                        View Image
+                                    </a>
+                                </td>
+                                <td>
+                                    <form method="post" action="{% url 'delete_unlabelphoto' photo.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="labeled_part">
+        <hr>
+        <h3 class="text-center">Labeled Image Tabel</h3>
+        <hr>
+        <div class="container">
+
+            <div class="row" id="content">
+                <div class="col-2"></div>
+                <div class="col-4">
+                    <h5>Download the Report as Json File</h5>
+                </div>
+                <div class="col-2">
+                    <form method="post">
+                        {% csrf_token %}
+                        <a href="{% static 'jsonfile/image_label.json' %}" download class="btn btn-primary btn-sm">
+                            Download </a>
+                    </form>
+                </div>
+                <div class="col-2">
+                    <a href="#unlabeled_part" class="btn btn-primary btn-sm smoothScroll">
+                        Unlabeled Image
+                    </a>
+                </div>                
+                <div class="col-2">
+                    <form method="GET" id="clear-form"
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="hidden" name="clear_labeled" value="true" />
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary btn-danger btn-icon-split">
+                                    Clear
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            
+            </div>
+
+            <div class="row pt-4">
+                <div class="col">
+                </div>
+                <div class="col-11">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th style="font-size:12px">Overview</th>
+                                <th style="font-size:12px">Image_id</th>
+                                <th style="font-size:12px">Image_Name</th>
+                                <th style="font-size:12px">label</th>
+                                <th style="font-size:12px">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for photo in labeldata %}
+                            {% if photo.labelstatus %}
+                            <tr>
+                                <td>
+                                    <img src="{{ photo.image.url }}" style="width:100px;">
+                                </td>
+                                <td>{{ photo.id }}</td>
+                                <td>{{ photo.filename }}</td>
+                                <td>{{ photo.description }}</td>
+                                <td>
+                                    <form method="post" action="{% url 'remove_labelphoto' photo.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="static/js/jquery-3.4.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="static/js/popper.min.js"></script>
+    <script src="static/js/bootstrap-4.4.1.js"></script>
+
+</body>
+
+</html>
+
+
+<script>
+    let addbtn = document.getElementsByName('add_label');
+    for (let i = 0; i < addbtn.length; i++) {
+        //alert("which radio: ")
+        for (j = 4 * i; j < 4 * i + 4; j++) {
+            //alert("which radio: " + j);
+            // document.getElementsByClassName('form-check-input')[j].disabled = false;
+            document.getElementsByClassName('form-check-input')[j].setAttribute('name', "inlineRadioOptions" + i)
+            // alert("this radio button was clicked: " + document.getElementsByName('inlineRadioOptions')[j].id);
+            // document.getElementById(document.getElementsByName('inlineRadioOptions')[j].id).disabled = false;
+        }
+        addbtn[i].onclick = function () {
+            // message(i);
+            for (let j = 0; j < 4; j++) {
+                //alert("which radio: " + j)
+                if (document.getElementsByName("inlineRadioOptions" + i)[j].checked == true) {
+                    document.getElementsByName("img_addlabel")[i].value = document.getElementsByName("inlineRadioOptions" + i)[j].id;
+                }
+            }
+
+        }
+    }
+</script>

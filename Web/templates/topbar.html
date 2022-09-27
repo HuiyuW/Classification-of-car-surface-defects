@@ -1,0 +1,58 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container"><a class="navbar-brand" href="{% url 'startPage' %}">AMI GROUP 06&nbsp;
+        </a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" id="navbar-link-group">
+                <li class="nav-item"><a class="nav-link" id='image-list-link' href="model_introduce">Model Introduce</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" id='home' href="{% url 'home' %}">Classification <span
+                            class="sr-only">(current)</span></a></li>
+                <li class="nav-item"><a class="nav-link" id='image-list-link' href="image_list">Activ Learning</a>
+                <li class="nav-item"><a class="nav-link" id='image-list-link' href="final_report">Download</a></li>
+                <li class="nav-item"><a class="nav-link" id='image-list-link' href="{% url 'image_label' %}">Image
+                        Label</a></li>
+
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<script type="text/javascript">$(function () {
+        // this will get the full URL at the address bar
+        var url = window.location.href;
+
+        // passes on every "a" tag
+        $(".navbar-nav .nav-link").each(function () {
+
+            // checks if its the same on the address bar
+            if (url == (this.href)) {
+                // $(this).closest("li").siblings().removeClass("active")
+                $(this).closest("li").addClass("active");
+                //for making parent of submenu active
+                $(this).closest("li").parent().parent().addClass("active");
+
+            }
+        });
+    });
+
+
+
+</script>

@@ -1,0 +1,24 @@
+# startapp
+virtualenv venv
+venv\Scripts\activate
+django-admin startproject project_name
+python manage.py startapp imgProcess
+pip install pillow
+
+# model- database 
+python manage.py makemigrations
+python manage.py migrate
+python manage.py flush
+# manage admin user
+python manage.py createsuperuser
+
+
+# docker image 
+pip list                       -> check pip installed package
+docker build --tag python-django .
+docker run -d -p 8888:8888 python-django
+############ocker run --publish 6666:8000 python-django###########
+# docker compose 
+docker-compose build
+docker-compose run --rm app django-admin startproject core.
+docker-compose up
